@@ -61,7 +61,19 @@ module calendar(
           real_year = real_year +1;
           real_month = 1;
         end
-        if (real_year == 16'b1111111111111111)begin
+        if (real_year[3:0] == 10)begin
+          real_year[7:4] = real_year[7:4] + 1;
+          real_year[3:0] = 0;
+        end
+        if (real_year[7:4] == 10)begin
+          real_year[11:8] = real_year[11:8] + 1;
+          real_year[7:4] = 0;
+        end
+        if (real_year[11:8] == 10)begin
+          real_year[15:12] = real_year[15:12] + 1;
+          real_year[11:8] = 0;
+        end
+        if (real_year[15:12] == 10)begin
           real_day = 1;
           real_month = 1;
           real_year = 1;
@@ -73,3 +85,62 @@ module calendar(
     end
 
 endmodule
+// tb for part testing
+// module tb;
+//     reg d_clk;
+//     // reg rst;
+//     reg set_cal;
+//     reg [7:0] set_day;
+//     reg [3:0] set_weekday;
+//     reg [7:0] set_month;
+//     reg [15:0] set_year;
+//     reg [7:0] real_hour;
+//     wire [7:0] real_day;
+//     wire [3:0] real_weekday;
+//     wire [7:0] real_month;
+//     wire [15:0] real_year;
+
+//     calender dut(
+//         // .d_clk(d_clk),
+//         .set_cal(set_cal),
+//         .set_day(set_day),
+//         .set_weekday(set_weekday),
+//         .set_month(set_month),
+//         .set_year(set_year),
+//         .real_hour(real_hour),
+//         .real_day(real_day),
+//         .real_weekday(real_weekday),
+//         .real_month(real_month),
+//         .real_year(real_year)
+//     );
+
+//     initial begin
+//       d_clk = 0;
+//       forever #5 d_clk = ~d_clk;
+//     end
+//     initial begin
+//       set_cal = 1;
+//       set_month = 0;
+//       set_day = 0;
+//       set_weekday = 0;
+//       set_cal =0;
+//       real_hour = 0;
+//       forever@(posedge d_clk)begin
+//         real_hour[3:0] = real_hour[3:0] +1;
+//         if(real_hour[3:0] == 9)begin
+//           real_hour[7:4] = real_hour[7:4]+1;
+//           real_hour[3:0] = 0;
+//         end
+//         if ( real_hour[7:4] == 2 && real_hour[3:0] == 4)begin
+//           real_hour = 0;
+//         end
+//       end
+//     end
+//     initial #100000 $finish;
+//     initial begin
+//       $monitor("date = %h || month = %h || year = %h || weekday = %h ",real_day,real_month,real_year,real_weekday);
+//     end
+// endmodule
+    
+
+
