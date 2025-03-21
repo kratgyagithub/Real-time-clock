@@ -11,9 +11,9 @@ module RTC(
     input wire [35:0]set_full_cal,//format day[35:28] - weekday[27:24] - month[23:16] - year[15:0]
     input wire [27:0]set_alarm_time,//format hour[27:20] - min[19:12] - day[11:4] -weekday[3:0]
     input wire intr_alarm,
-    output reg [23:0] full_time,// format hour[23:16] - min[15:8] - sec[7:0]
-    output reg [35:0] full_cal,//format day[35:28] - weekday[27:24] - month[23:16] - year[15:0]
-    output reg alarm_flag
+    output wire [23:0] full_time,// format hour[23:16] - min[15:8] - sec[7:0]
+    output wire [35:0] full_cal,//format day[35:28] - weekday[27:24] - month[23:16] - year[15:0]
+    output wire alarm_flag
 );
 wire clk_w;
 wire[7:0] real_w_cc;
